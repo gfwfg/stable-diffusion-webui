@@ -197,9 +197,13 @@ class Api:
         self.add_api_route("/sdapi/v1/unload-checkpoint", self.unloadapi, methods=["POST"])
         self.add_api_route("/sdapi/v1/reload-checkpoint", self.reloadapi, methods=["POST"])
         self.add_api_route("/sdapi/v1/scripts", self.get_scripts_list, methods=["GET"], response_model=ScriptsList)
+        self.add_api_route("/healthcheck", self.healthcheck, methods=["GET"])
 
         self.default_script_arg_txt2img = []
         self.default_script_arg_img2img = []
+
+    def healthcheck(self):
+        return Response(status_code=200)
 
     def add_api_route(self, path: str, endpoint, **kwargs):
         if shared.cmd_opts.api_auth:
